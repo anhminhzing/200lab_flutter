@@ -15,7 +15,6 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
     super.initState();
     textDegreeC = TextEditingController();
     textDegreeF = TextEditingController();
-
   }
 
   @override
@@ -26,19 +25,20 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
     textDegreeF.dispose();
   }
 
-  void onChangeCtoF(String value){
+  void onChangeCtoF(String value) {
     int temp = int.parse(value);
     int result;
-    if (temp != null){
-       result = (( temp *  9 / 5 ) + 32).round();
-       textDegreeF.text = result.toString();
+    if (temp != null) {
+      result = ((temp * 9 / 5) + 32).round();
+      textDegreeF.text = result.toString();
     }
   }
-  void onChangeFtoC(String value){
+
+  void onChangeFtoC(String value) {
     int temp = int.parse(value);
     int result;
-    if (temp != null){
-      result = (( temp - 32  ) * 5 / 9).round();
+    if (temp != null) {
+      result = ((temp - 32) * 5 / 9).round();
       textDegreeC.text = result.toString();
     }
   }
@@ -52,18 +52,16 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
           TextField(
             controller: textDegreeC,
             keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'C temperature'
-            ),
+            decoration: InputDecoration(labelText: 'C temperature'),
             onChanged: onChangeCtoF,
           ),
-          SizedBox(height: 50,),
+          SizedBox(
+            height: 50,
+          ),
           TextField(
             controller: textDegreeF,
             keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                labelText: 'F temperature'
-            ),
+            decoration: InputDecoration(labelText: 'F temperature'),
             onChanged: onChangeFtoC,
           )
         ],
