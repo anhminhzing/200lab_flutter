@@ -8,6 +8,8 @@ class TemperatureTranslate extends StatefulWidget {
 class _TemperatureTranslateState extends State<TemperatureTranslate> {
   TextEditingController textDegreeC;
   TextEditingController textDegreeF;
+  double temp;
+  double result;
 
   @override
   void initState() {
@@ -28,11 +30,10 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
     if(textDegreeC.text == ''){
       textDegreeF.text = '';
     }
-    int temp = int.parse(value);
-    int result;
+    temp = double.parse(value);
     if (temp != null) {
-      result = ((temp * 9 / 5) + 32).round();
-      textDegreeF.text = result.toString();
+      result = (temp * 9 / 5) + 32;
+      textDegreeF.text = result.toStringAsFixed(1);
     }
   }
 
@@ -40,11 +41,10 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
     if(textDegreeF.text == '' ) {
       textDegreeC.text ='';
     }
-    int temp = int.parse(value);
-    int result;
+    temp = double.parse(value);
     if (temp != null) {
-      result = ((temp - 32) * 5 / 9).round();
-      textDegreeC.text = result.toString();
+      result = (temp - 32) * 5 / 9;
+      textDegreeC.text = result.toStringAsFixed(1);
     }
   }
 
@@ -74,15 +74,14 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
           ),
           RaisedButton(
             onPressed: (){
-              int result;
               if(textDegreeC.text != ''){
-                int tempC = int.parse(textDegreeC.text);
-                result = (tempC * 9 / 5 + 32).round();
-                textDegreeF.text = result.toString();
+                temp = double.parse(textDegreeC.text);
+                result = temp * 9 / 5 + 32;
+                textDegreeF.text = result.toStringAsFixed(1);
               }else if(textDegreeF.text != ''){
-                int tempF = int.parse(textDegreeF.text);
-                result = ((tempF - 32) * 5 / 9).round();
-                textDegreeC.text = result.toString();
+                temp = double.parse(textDegreeF.text);
+                result = (temp - 32) * 5 / 9;
+                textDegreeC.text = result.toStringAsFixed(1);
               }
               FocusScope.of(context).unfocus();
             },
