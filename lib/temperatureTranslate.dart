@@ -20,9 +20,9 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     textDegreeC.dispose();
     textDegreeF.dispose();
+    super.dispose();
   }
 
 
