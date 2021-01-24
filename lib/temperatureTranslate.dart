@@ -11,15 +11,13 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     textDegreeC = TextEditingController();
     textDegreeF = TextEditingController();
+    super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     textDegreeC.dispose();
     textDegreeF.dispose();
     super.dispose();
