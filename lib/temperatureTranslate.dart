@@ -25,7 +25,11 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
     textDegreeF.dispose();
   }
 
+
   void onChangeCtoF(String value) {
+    if(textDegreeC.text == ''){
+      textDegreeF.text = '';
+    }
     int temp = int.parse(value);
     int result;
     if (temp != null) {
@@ -35,6 +39,9 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
   }
 
   void onChangeFtoC(String value) {
+    if(textDegreeF.text == '' ) {
+      textDegreeC.text ='';
+    }
     int temp = int.parse(value);
     int result;
     if (temp != null) {
@@ -63,6 +70,25 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(labelText: 'F temperature'),
             onChanged: onChangeFtoC,
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          RaisedButton(
+            onPressed: (){
+              int result;
+              if(textDegreeC.text != ''){
+                int tempC = int.parse(textDegreeC.text);
+                result = (tempC * 9 / 5 + 32).round();
+                textDegreeF.text = result.toString();
+              }else if(textDegreeF.text != ''){
+                int tempF = int.parse(textDegreeF.text);
+                result = ((tempF - 32) * 5 / 9).round();
+                textDegreeC.text = result.toString();
+              }
+              FocusScope.of(context).unfocus();
+            },
+            child: Text('translate'),
           )
         ],
       ),
