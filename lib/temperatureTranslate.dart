@@ -72,21 +72,21 @@ class _TemperatureTranslateState extends State<TemperatureTranslate> {
           SizedBox(
             height: 50,
           ),
-          RaisedButton(
-            onPressed: (){
-              if(textDegreeC.text != ''){
-                temp = double.parse(textDegreeC.text);
-                result = temp * 9 / 5 + 32;
-                textDegreeF.text = result.toStringAsFixed(1);
-              }else if(textDegreeF.text != ''){
-                temp = double.parse(textDegreeF.text);
-                result = (temp - 32) * 5 / 9;
-                textDegreeC.text = result.toStringAsFixed(1);
-              }
-              FocusScope.of(context).unfocus();
-            },
-            child: Text('translate'),
-          )
+          // RaisedButton(
+          //   onPressed: (){
+          //     if(textDegreeC.text != ''){
+          //       temp = double.parse(textDegreeC.text);
+          //       result = temp * 9 / 5 + 32;
+          //       textDegreeF.text = result.toStringAsFixed(1);
+          //     }else if(textDegreeF.text != ''){
+          //       temp = double.parse(textDegreeF.text);
+          //       result = (temp - 32) * 5 / 9;
+          //       textDegreeC.text = result.toStringAsFixed(1);
+          //     }
+          //     FocusScope.of(context).unfocus();
+          //   },
+          //   child: Text('translate'),
+          // )
         ],
       ),
     );

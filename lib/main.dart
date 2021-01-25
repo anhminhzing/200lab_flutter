@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: appBarCustom(),
-      body: TemperatureTranslate(),
+      body: LayOut(),
     );
   }
 }
