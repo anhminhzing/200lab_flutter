@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/layout.dart';
-import 'package:flutter_app/temperatureTranslate.dart';
+import 'package:flutter_app/Module1/layout.dart';
+import 'package:flutter_app/Module1/temperatureTranslate.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -41,7 +43,50 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: appBarCustom(),
-      body: LayOut(),
+      body: Column(
+        children: [
+          Center(
+            child: Text('Module 1: '),
+          ),
+          RaisedButton(
+            child: Text('Layout'),
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LayOut(),
+                ),
+              );
+            },
+          ),
+          RaisedButton(
+            child: Text('Temperature Translate'),
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TemperatureTranslate(),
+                ),
+              );
+            },
+          ),
+          SizedBox(height: 20,),
+          Center(
+            child: Text('Module 2: '),
+          ),
+          RaisedButton(
+            child: Text('ToDo App'),
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TemperatureTranslate(),
+                ),
+              );
+            },
+          ),
+        ],
+      )
     );
   }
 }
