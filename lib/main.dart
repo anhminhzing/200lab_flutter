@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/Module1/layout.dart';
 import 'package:flutter_app/Module1/temperatureTranslate.dart';
 import 'package:flutter_app/Module2/todo_app1/main_todo.dart';
+import 'package:flutter_app/Module3/main_user.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
@@ -89,6 +90,22 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
           ),
+          SizedBox(height: 20,),
+          Center(
+            child: Text('Module 3: '),
+          ),
+          RaisedButton(
+            child: Text('User UI with random API'),
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MainUser(),
+                ),
+              );
+            },
+          ),
+
         ],
       )
     );
