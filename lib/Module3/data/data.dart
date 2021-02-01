@@ -24,20 +24,20 @@ class Name {
 
 class Street {
   String name;
-  String number;
+  int number;
 
-  Street({name, number});
+  Street({this.name, this.number});
 
   factory Street.fromJson(Map<String, dynamic> json) {
     return Street(
       name: json['name'] as String,
-      number: json['number'] as String,
+      number: json['number'] as int,
     );
   }
 
   Map<String, dynamic> toJson() => {
         'name': name,
-        'number': number,
+        'number': number
       };
 
   @override
@@ -47,15 +47,15 @@ class Street {
 }
 
 class Coordinates {
-  double latitude;
-  double longitude;
+  String latitude;
+  String longitude;
 
-  Coordinates({latitude, longitude});
+  Coordinates({this.latitude, this.longitude});
 
   factory Coordinates.fromJson(Map<String, dynamic> json) {
     return Coordinates(
-      latitude: json['latitude'] as double,
-      longitude: json['longitude'] as double,
+      latitude: json['latitude'] as String,
+      longitude: json['longitude'] as String,
     );
   }
 
@@ -74,7 +74,7 @@ class TimeZone {
   String offset;
   String description;
 
-  TimeZone({offset, description});
+  TimeZone({this.offset, this.description});
 
   factory TimeZone.fromJson(Map<String, dynamic> json) {
     return TimeZone(
@@ -99,7 +99,7 @@ class Location {
   String city;
   String state;
   String country;
-  String postcode;
+  int postcode;
   Coordinates coordinates;
   TimeZone timezone;
 
@@ -119,9 +119,9 @@ class Location {
       city: json['city'] as String,
       state: json['state'] as String,
       country: json['country'] as String,
-      postcode: json['postcode'] as String,
+      postcode: json['postcode'] as int,
       coordinates: Coordinates.fromJson(json['coordinates']),
-      timezone: TimeZone.fromJson(json['TimeZone']),
+      timezone: TimeZone.fromJson(json['timezone']),
     );
   }
 
@@ -149,7 +149,7 @@ class Dob {
 
   factory Dob.fromJson(Map<String, dynamic> json) {
     return Dob(
-      date: json['date'] as DateTime,
+      date: DateTime.parse(json['date']),
       age: json['age'] as int,
     );
   }
@@ -168,22 +168,22 @@ class Dob {
 class Picture {
   String large;
   String medium;
-  String thumnail;
+  String thumbnail;
 
-  Picture({this.large, this.medium, this.thumnail});
+  Picture({this.large, this.medium, this.thumbnail});
 
   factory Picture.fromJson(Map<String, dynamic> json) {
     return Picture(
       large: json['large'] as String,
       medium: json['medium'] as String,
-      thumnail: json['thumnail'] as String,
+      thumbnail: json['thumbnail'] as String,
     );
   }
 
   Map<String, dynamic> toJson() => {
         'large': large,
         'medium': medium,
-        'thumnail': thumnail,
+        'thumbnail': thumbnail,
       };
 
   @override
@@ -244,19 +244,19 @@ class Response {
 }
 
 class Result {
-  List<Response> responses;
+  List<Response> results;
 
-  Result({this.responses});
+  Result({this.results});
 
   factory Result.fromJson(Map<String, dynamic> json) {
     return Result(
-        responses: (json['results'] as List).map((e) {
+        results: (json['results'] as List).map((e) {
       return Response.fromJson(e);
     }).toList());
   }
 
   Map<String, dynamic> toJson() => {
-        'results': responses.map((e) {
+        'results': results.map((e) {
           return e.toJson();
         })
       };

@@ -1,13 +1,30 @@
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:flutter_app/Module3/data/data.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:http/http.dart' as http;
 
-enum RespondUser{Loading, Success, Error}
+
 
 class UserBloc{
   // ignore: close_sinks
-  BehaviorSubject<RespondUser> userBloc = BehaviorSubject<RespondUser>();
+  BehaviorSubject<Result> userBloc = BehaviorSubject<Result>();
+  BehaviorSubject<Result> get userBlocStream => this.userBloc.stream;
+  Future<void> getData() async {
+    String url = 'https://randomuser.me/api/';
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      Result responseJS = Result.fromJson(json.decode(response.body));
+      // print(responseJS.results[0].picture.thumbnail);
+      userBloc.sink.add(responseJS);
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+      userBloc.sink.addError('error');
+    }
+  }
 
-  void getData(){
-
+  void init(){
+    getData();
   }
 
   void dispose(){
