@@ -138,10 +138,10 @@ class _PageScreenState extends State<PageScreen> {
                       Column(
                         children: List.generate(listTask.length, (index) {
                           return GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               setState(() {
                                 listTask[index].isDone =
-                                !listTask[index].isDone;
+                                    !listTask[index].isDone;
                               });
                             },
                             child: Container(
@@ -149,7 +149,7 @@ class _PageScreenState extends State<PageScreen> {
                               decoration: BoxDecoration(
                                 color: Color(0xFF242A37),
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(10)),
+                                    BorderRadius.all(Radius.circular(10)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.2),
@@ -170,7 +170,7 @@ class _PageScreenState extends State<PageScreen> {
                                     onChanged: (newValue) {
                                       setState(() {
                                         listTask[index].isDone =
-                                        !listTask[index].isDone;
+                                            !listTask[index].isDone;
                                       });
                                     },
                                   ),
@@ -245,9 +245,9 @@ class _PageScreenState extends State<PageScreen> {
                                 task: taskController.text,
                                 isDone: false,
                               );
-                              taskController.text.trim() != ''
-                                  ? listTask.add(newTask)
-                                  : null;
+                              if (taskController.text.trim() != '') {
+                                listTask.add(newTask);
+                              }
                               taskController.clear();
                             });
                           },

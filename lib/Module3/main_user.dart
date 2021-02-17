@@ -31,6 +31,9 @@ class _MainUserState extends State<MainUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('List User'),
+      ),
       body: Stack(
         children: [
           Container(
@@ -46,88 +49,30 @@ class _MainUserState extends State<MainUser> {
                 if (snapshot.hasData) {
                   print(snapshot.data.results[0].picture.thumbnail);
                   return Column(
-                    children: [
-                      Container(
-                        height: 200,
-                        width: double.infinity,
+                    children: (snapshot.data.results as List).map((e) {
+                      return Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 10,
+                        ),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                          ),
-                          gradient: LinearGradient(
-                            colors: [
-                              const Color(0xff00dbde),
-                              const Color(0xfffc00ff)
-                            ],
-                            begin: const FractionalOffset(0.0, 1.0),
-                            end: const FractionalOffset(1.0, 0.0),
-                            stops: [
-                              0.0,
-                              1.0,
-                            ],
-                          ),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Stack(
-                          overflow: Overflow.visible,
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            Positioned(
-                              bottom: -40,
-                              width: 120.0,
-                              height: 120.0,
-                              child: CachedNetworkImage(
-                                fit: BoxFit.cover,
-                                imageUrl:
-                                    snapshot.data.results[0].picture.large,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                                // fit: BoxFit.cover,
-                                fadeInDuration: Duration(microseconds: 200),
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
-                                  width: 80.0,
-                                  height: 80.0,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: Colors.white,
-                                      width: 2.0,
-                                    ),
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            '${snapshot.data.results[0].name.first} '
-                            '${snapshot.data.results[0].name.last}',
-                            style: basicTextStyle,
+                        child: ListTile(
+                          leading: _buildAvatar(e.picture.large),
+                          title: _buildTitle(
+                            e.name.first,
+                            e.name.last,
                           ),
-                          // SizedBox(height: 10,),
-                          Text(
-                            '${snapshot.data.results[0].location.state} ,'
-                            '${snapshot.data.results[0].location.country} ',
-                            style: basicTextStyle,
-                          )
-                        ],
-                      )
-                    ],
+                          subtitle: _buildSubtitle(
+                            e.location.state,
+                            e.location.country,
+                          ),
+                          // trailing:,
+                        ),
+                      );
+                    }).toList(),
                   );
                 } else if (snapshot.hasError) {
                   return Container(
@@ -141,5 +86,38 @@ class _MainUserState extends State<MainUser> {
         ],
       ),
     );
+  }
+
+  Widget _buildAvatar(String url) {
+    return CachedNetworkImage(
+      fit: BoxFit.cover,
+      imageUrl: url,
+      placeholder: (context, url) => CircularProgressIndicator(),
+      errorWidget: (context, url, error) => Icon(Icons.error),
+      fadeInDuration: Duration(microseconds: 200),
+      imageBuilder: (context, imageProvider) => Container(
+        width: 80.0,
+        height: 80.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.white,
+            width: 2.0,
+          ),
+          image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTitle(String first, String last) {
+    return Text('$first $last');
+  }
+
+  Widget _buildSubtitle(String state, String country) {
+    return Text('$state , $country');
   }
 }

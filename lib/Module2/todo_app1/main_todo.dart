@@ -119,126 +119,124 @@ class _ToDoAppState extends State<ToDoApp> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              color: Color(0xFF242A37),
-            ),
-            SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 20,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        gradient: LinearGradient(
-                          begin: const FractionalOffset(0.0, 0.0),
-                          end: const FractionalOffset(1.0, 0.0),
-                          stops: [
-                            0.0,
-                            1.0,
-                          ],
-                          colors: [
-                            Colors.pink,
-                            Color(0xFFFF9500),
-                          ],
-                        ),
-                      ),
-                      child: Text(
-                        'ToDo List',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            color: Color(0xFF242A37),
+          ),
+          SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 50),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      gradient: LinearGradient(
+                        begin: const FractionalOffset(0.0, 0.0),
+                        end: const FractionalOffset(1.0, 0.0),
+                        stops: [
+                          0.0,
+                          1.0,
+                        ],
+                        colors: [
+                          Colors.pink,
+                          Color(0xFFFF9500),
+                        ],
                       ),
                     ),
-                    StreamBuilder<ResponseState>(
-                      stream: blocController.getListItemController,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<ResponseState> snapshot) {
-                        switch (snapshot.data) {
-                          case ResponseState.loading:
-                            return Center(
-                              child: Text('Loading'),
-                            );
-                            break;
-                          case ResponseState.done:
-                            if (MockData.mockList.isEmpty) {
-                              MockData.mockList = blocController.listToDo;
-                            }
-                            blocController.setList();
-                            return Column(
-                              children: List.generate(MockData.mockList.length,
-                                  (index) {
-                                return CardItem(
-                                  title: MockData.mockList[index].title,
-                                  description:
-                                      MockData.mockList[index].description,
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => PageScreen(
-                                            item: MockData.mockList[index]),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }).toList(),
-                            );
-                            break;
-                          default:
-                            return Center(
-                              child: Text('Don\'t have data'),
-                            );
-                            break;
-                        }
-                      },
+                    child: Text(
+                      'ToDo List',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  StreamBuilder<ResponseState>(
+                    stream: blocController.getListItemController,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<ResponseState> snapshot) {
+                      switch (snapshot.data) {
+                        case ResponseState.loading:
+                          return Center(
+                            child: Text('Loading'),
+                          );
+                          break;
+                        case ResponseState.done:
+                          if (MockData.mockList.isEmpty) {
+                            MockData.mockList = blocController.listToDo;
+                          }
+                          return Column(
+                            children: List.generate(MockData.mockList.length,
+                                (index) {
+                              return CardItem(
+                                title: MockData.mockList[index].title,
+                                description:
+                                    MockData.mockList[index].description,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PageScreen(
+                                          item: MockData.mockList[index]),
+                                    ),
+                                  );
+                                },
+                              );
+                            }).toList(),
+                          );
+                          break;
+                        default:
+                          return Center(
+                            child: Text('Don\'t have data'),
+                          );
+                          break;
+                      }
+                    },
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _showDialog();
-          },
-          child: Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(50)),
-                gradient: LinearGradient(
-                  begin: const FractionalOffset(0.0, 0.0),
-                  end: const FractionalOffset(1.0, 0.0),
-                  stops: [
-                    0.0,
-                    1.0,
-                  ],
-                  colors: [
-                    Colors.pink,
-                    Color(0xFFFF9500),
-                  ],
-                ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showDialog();
+        },
+        child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+              gradient: LinearGradient(
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [
+                  0.0,
+                  1.0,
+                ],
+                colors: [
+                  Colors.pink,
+                  Color(0xFFFF9500),
+                ],
               ),
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-                size: 30,
-              )),
-        ),
+            ),
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 30,
+            )),
       ),
     );
   }

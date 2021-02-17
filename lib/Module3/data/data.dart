@@ -35,10 +35,7 @@ class Street {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'number': number
-      };
+  Map<String, dynamic> toJson() => {'name': name, 'number': number};
 
   @override
   String toString() {
@@ -99,7 +96,7 @@ class Location {
   String city;
   String state;
   String country;
-  int postcode;
+  dynamic postcode;
   Coordinates coordinates;
   TimeZone timezone;
 
@@ -119,7 +116,7 @@ class Location {
       city: json['city'] as String,
       state: json['state'] as String,
       country: json['country'] as String,
-      postcode: json['postcode'] as int,
+      postcode: json['postcode'] as dynamic,
       coordinates: Coordinates.fromJson(json['coordinates']),
       timezone: TimeZone.fromJson(json['timezone']),
     );

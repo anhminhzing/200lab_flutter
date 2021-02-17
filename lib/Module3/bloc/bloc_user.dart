@@ -4,18 +4,16 @@ import 'package:flutter_app/Module3/data/data.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart' as http;
 
-
-
-class UserBloc{
+class UserBloc {
   // ignore: close_sinks
   BehaviorSubject<Result> userBloc = BehaviorSubject<Result>();
   BehaviorSubject<Result> get userBlocStream => this.userBloc.stream;
   Future<void> getData() async {
-    String url = 'https://randomuser.me/api/';
+    String url = 'https://randomuser.me/api/?results=10';
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Result responseJS = Result.fromJson(json.decode(response.body));
-      // print(responseJS.results[0].picture.thumbnail);
+      print(responseJS.toString());
       userBloc.sink.add(responseJS);
     } else {
       print('Request failed with status: ${response.statusCode}.');
@@ -23,11 +21,11 @@ class UserBloc{
     }
   }
 
-  void init(){
+  void init() {
     getData();
   }
 
-  void dispose(){
+  void dispose() {
     this.userBloc.close();
   }
 }
